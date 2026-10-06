@@ -23,5 +23,5 @@ done
 python3 patch/patch_axml.py "$APK" AndroidManifest_new.xml --label "RikkaHub Mod"
 python3 patch/build_apk.py
 javac -cp apksig.jar patch/Sign.java -d .
-java -cp "apksig.jar:." Sign rikkahub-mod.keystore rikka123456 rikkahub RikkaHub_2.5.6-mod-unsigned.apk RikkaHub_2.5.6-mod.apk
+java -cp "apksig.jar:." Sign rikkahub-mod.keystore <你的keystore密码> rikkahub RikkaHub_2.5.6-mod-unsigned.apk RikkaHub_2.5.6-mod.apk
 echo "完成: $WORK/RikkaHub_2.5.6-mod.apk"
