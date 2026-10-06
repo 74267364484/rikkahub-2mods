@@ -1,0 +1,6 @@
+{
+ "classes.dex": "out1.dex",
+ "classes2.dex": "out2.dex",
+ "classes3.dex": "out3-official.dex",
+ "AndroidManifest.xml": "AndroidManifest_official.xml"
+}

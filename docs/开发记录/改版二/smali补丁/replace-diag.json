@@ -1,0 +1,7 @@
+{
+ "classes.dex": "out1.dex",
+ "classes2.dex": "out2.dex",
+ "classes3.dex": "out3.dex",
+ "AndroidManifest.xml": "AndroidManifest_diag.xml",
+ "resources.arsc": "resources_diag.arsc"
+}

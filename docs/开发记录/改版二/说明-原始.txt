@@ -1,0 +1,46 @@
+文件: RikkaHubMod.apk  (39.3 MB, 目录里就这一个)
+包名: me.rerere.rikkahub.mod   应用名: RikkaHub Mod   版本: 2.5.6-mod.19 (207)
+SHA256: 1a23316b32d78b3734f9c5197410f08291a2ba15a4266f4b0cdfb441ca6c6231
+签名: v1+v2+v3 通过, 与上一版同一个 keystore -> 可直接覆盖安装, 不用卸载
+      (和你已装的原版 me.rerere.rikkahub / 二次打包版 me.rerere.rikkahuc 都不冲突)
+
+★ 权限: APP 启动时检查「所有文件访问权限」
+   - 没授权 -> 弹系统对话框「需要「所有文件访问权限」」[去授权] [稍后]
+     -> 点「去授权」跳系统设置, 三级回退:
+        APP 专属授权页 -> 所有文件访问列表页 -> 应用详情页 -> 文字指引 Toast
+   - 从设置页回到 APP 会提示结果: "✓ 已获得..." 或 "仍未获得...(开关可能没打开)"
+   - 已授权 -> 不弹(正常)
+   - 每次启动检查一次(同一进程内只提示一次), 授权后不再打扰
+   - Android 11(API 30) 以下跳过(老系统不需要这个权限)
+   - 兜底: 即使不授权, 工作台不会崩, 只会回退到 APP 私有目录(看不到手机文件)
+   手动路径: 设置 -> 应用 -> RikkaHub Mod -> 特殊权限 -> 所有文件访问权限 -> 允许
+
+改了什么:
+ 1. 提示词: 原来 APP 告诉模型"工作区是 sandboxed proot rootfs、路径必须在 Rootfs 内",
+    所以模型会回答"我看不到你的设备"。现在提示词/工具描述改成明确告知:
+    /sdcard (= /storage/emulated/0) 和 /storage 是【手机真实存储】(相册/Download/Documents/
+    Pictures/Music/Android/media...), 可以直接读写, 隐藏文件也可见, 不许再说看不到设备文件。
+ 2. 工作台文件区默认落在手机存储: /storage/emulated/0/RikkaHub/workspaces/<工作区ID>/
+    -> APP 的"文件"页看到的就是手机上真实目录(隐藏文件也列)
+    -> AI 的 /workspace 也是这个真实目录
+ ★ 长按桌面图标有两个快捷方式:
+   - 「手机存储权限」-> 直接打开系统「所有文件访问权限」页(任何时候都能手动授权)
+   - 「设置工作台目录」-> 系统目录选择器, 选完自动写入配置
+   (Android 对「所有文件访问权限」没有弹窗式申请, 只能跳系统设置页; APP 启动时也会自动跳一次)
+
+ 3. 换目录(推荐用快捷方式): 长按桌面「RikkaHub Mod」图标 -> 选「设置工作台目录」
+    -> 系统目录选择器里挑一个文件夹 -> 提示"工作台目录已设为: xxx" 即生效
+    (看不到这个快捷方式的话, 重启一次桌面/等几秒; 装完第一次可能要等系统刷新快捷方式)
+    手动方式(等效): 建文件 /storage/emulated/0/RikkaHub/workspace_base.txt, 内容写绝对路径
+      /storage/emulated/0                -> 整个内部存储当工作台(文件页可浏览全机存储)
+      /storage/emulated/0/Download       -> 就用下载目录
+      /storage/emulated/0/my/{root}      -> 每个工作区一个子目录
+    即时生效, 不用重启。
+ 4. proot 挂载: /storage/emulated/0 -> /sdcard, /storage -> /storage (shell 和 AI 工具都能用)
+ 5. 写 /sdcard、/storage 不再弹审批; 隐藏文件本来就显示(只过滤 proot 的 .l2s. 临时文件)
+
+验证: 新开对话, 让它 "ls -a /sdcard/Download" 或 "读一下 /sdcard/Download 里最新的文件"
+      -> 现在它应该直接执行, 而不是说看不到你的设备。
+
+已知没做的: 界面结构没动(改 Compose UI 需要源码编译), 没有"点按钮选目录"的文件夹选择器,
+           目录切换靠上面的 workspace_base.txt。要真选择器我可以走源码编译那条路, 但慢。
