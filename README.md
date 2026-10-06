@@ -97,21 +97,16 @@ RikkaHub **2.5.6** 的两个独立魔改版，**都跟官方原版共存**——
 
 ## 签名与校验
 
-```
-改版二 RikkaHubMod.apk
-  签名主体: CN=RikkaHub Mod, OU=Workspace, O=RikkaHubMod, L=CN, C=CN
-  证书 SHA-256: FD:BF:F9:21:BE:9F:85:04:57:93:41:CB:A2:BD:A3:B1:CE:6A:08:CA:14:3B:70:F7:D8:50:D0:4B:8B:58:EE:94
-  v1 + v2 + v3 签名
+两个包都**不是 RikkaHub 官方签名**。安装前请核对 SHA256（见 [`SHA256SUMS.txt`](SHA256SUMS.txt)）。
 
-改版一 RikkaHub_2.5.6-fullaccess_clone.apk
-  签名主体: C=US, ST=California, L=Mountain View, O=Android, OU=Android, CN=Android
-  证书 SHA-256: A4:0D:A8:0A:59:D1:70:CA:A9:50:CF:15:C1:8C:45:4D:47:A3:9B:26:98:9D:8B:64:0E:CD:74:5B:A7:1B:F5:DC
-  v2 签名
-```
+| 包 | 签名主体 | 证书 SHA-256 | 签名方案 |
+|---|---|---|---|
+| 改版二 `RikkaHubMod.apk` | `CN=RikkaHub Mod, OU=Workspace, O=RikkaHubMod, L=CN, C=CN` | `FD:BF:F9:21:BE:9F:85:04:57:93:41:CB:A2:BD:A3:B1:CE:6A:08:CA:14:3B:70:F7:D8:50:D0:4B:8B:58:EE:94` | v1 + v2 + v3 |
+| 改版一 `RikkaHub_2.5.6-fullaccess_clone.apk` | `C=US, ST=California, L=Mountain View, O=Android, OU=Android, CN=Android` | `A4:0D:A8:0A:59:D1:70:CA:A9:50:CF:15:C1:8C:45:4D:47:A3:9B:26:98:9D:8B:64:0E:CD:74:5B:A7:1B:F5:DC` | v2 |
 
-> 改版一用的是 **AOSP 公开测试密钥**（AOSP 源码里就有，人人可签）。所以**任何人都能签一个同包名 `me.rerere.rikkahuc` 的 APK 冒充它**。如果这个包对你有意义，建议自己重新签名；日常用的话，认准本仓库的 SHA256。
->
-> 本仓库**不提供改版二的 keystore 文件**（那等于把覆盖安装你手机 APP 的钥匙公开挂在网上）。要长期自己维护这个改版，请自行生成 keystore 并固定使用。
+**改版二**使用自建 keystore 签名，该密钥不随本仓库分发，因此本仓库发布的 APK 无法被第三方重新签出可覆盖安装的版本。
+
+**改版一**沿用 AOSP 测试密钥（该密钥公开在 AOSP 源码中），任何人持有该密钥即可复现同样的签名，因此其**签名本身不能作为来源凭据**，请以 `SHA256SUMS.txt` 中的哈希为准。
 
 ---
 
